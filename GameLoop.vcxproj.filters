@@ -4,10 +4,25 @@
     <Filter Include="src">
       <UniqueIdentifier>{556570cd-5b44-4b68-9663-273f73106bc3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Engine">
+      <UniqueIdentifier>{daa600d0-fc5c-4bf6-ac8a-49b098506b51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Engine\Entity">
+      <UniqueIdentifier>{2371bcff-c524-41de-9504-32b47707ca4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Engine\Component">
+      <UniqueIdentifier>{3be07eca-f482-4140-9456-c7a3ea4b9baa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Engine\System">
+      <UniqueIdentifier>{24263d77-3ba7-44ea-9964-5018d8e19ebe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src/main.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityAdmin.cpp">
+      <Filter>src\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -22,6 +37,18 @@
     </ClInclude>
     <ClInclude Include="src\GameLoop.h">
       <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityAdmin.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>src\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>src\Engine\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.h">
+      <Filter>src\Engine\Entity</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
