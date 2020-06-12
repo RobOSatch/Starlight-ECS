@@ -163,18 +163,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="EntityAdmin.cpp" />
+    <ClCompile Include="src\Engine\EntityAdmin.cpp" />
     <ClCompile Include="src/main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Component.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="EntityAdmin.h" />
+    <ClInclude Include="src\Engine\Component\CircleComponent.h" />
+    <ClInclude Include="src\Engine\Component\Component.h" />
+    <ClInclude Include="src\Engine\Component\LifetimeComponent.h" />
+    <ClInclude Include="src\Engine\Component\ParticleComponent.h" />
+    <ClInclude Include="src\Engine\Component\TransformComponent.h" />
+    <ClInclude Include="src\Engine\Entity\Entity.h" />
+    <ClInclude Include="src\Engine\EntityAdmin.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Renderer.h" />
-    <ClInclude Include="src\Vector2.h" />
-    <ClInclude Include="System.h" />
+    <ClInclude Include="src\Engine\Utils\Vector2.h" />
+    <ClInclude Include="src\Engine\System\System.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

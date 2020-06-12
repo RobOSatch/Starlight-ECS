@@ -21,15 +21,12 @@
     <ClCompile Include="src/main.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="EntityAdmin.cpp">
+    <ClCompile Include="src\Engine\EntityAdmin.cpp">
       <Filter>src\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\GameObject.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Vector2.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\Renderer.h">
@@ -38,17 +35,24 @@
     <ClInclude Include="src\GameLoop.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="EntityAdmin.h">
-      <Filter>src\Engine</Filter>
-    </ClInclude>
-    <ClInclude Include="System.h">
-      <Filter>src\Engine\System</Filter>
-    </ClInclude>
-    <ClInclude Include="Component.h">
+    <ClInclude Include="src\Engine\Component\Component.h">
       <Filter>src\Engine\Component</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
+    <ClInclude Include="src\Engine\Entity\Entity.h">
       <Filter>src\Engine\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="src\Engine\System\System.h">
+      <Filter>src\Engine\System</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\EntityAdmin.h">
+      <Filter>src\Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Utils\Vector2.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Engine\Component\CircleComponent.h" />
+    <ClInclude Include="src\Engine\Component\ParticleComponent.h" />
+    <ClInclude Include="src\Engine\Component\TransformComponent.h" />
+    <ClInclude Include="src\Engine\Component\LifetimeComponent.h" />
   </ItemGroup>
 </Project>
