@@ -1,4 +1,2 @@
-﻿  EntityAdmin.cpp
-  main.cpp
-C:\Users\robar\source\repos\GED-ECS\src\GameObject.h(3,10): fatal error C1083: Cannot open include file: 'Vector2.h': No such file or directory
-  Generating Code...
+﻿  TransformComponent.cpp
+  GameLoop.vcxproj -> C:\Users\robar\source\repos\GED-ECS\bin\GameLoop.exe

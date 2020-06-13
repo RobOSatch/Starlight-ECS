@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Engine/Utils/Vector2.h"
+#include "Vector2.h"
 #include "Renderer.h"
 
 class GameObjectState

@@ -73,18 +73,22 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\</OutDir>
+    <IncludePath>C:\Users\robar\source\repos\GED-ECS\src\StarlightEngine;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)bin\</OutDir>
+    <IncludePath>C:\Users\robar\source\repos\GED-ECS\src\StarlightEngine;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\</OutDir>
+    <IncludePath>C:\Users\robar\source\repos\GED-ECS\src\StarlightEngine;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\</OutDir>
+    <IncludePath>C:\Users\robar\source\repos\GED-ECS\src\StarlightEngine;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -163,22 +167,32 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Engine\EntityAdmin.cpp" />
+    <ClCompile Include="src\Components\CircleComponent.cpp" />
     <ClCompile Include="src/main.cpp" />
+    <ClCompile Include="src\Components\InitialTransformComponent.cpp" />
+    <ClCompile Include="src\Components\MouseInputComponent.cpp" />
+    <ClCompile Include="src\Components\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Engine\Component\CircleComponent.h" />
-    <ClInclude Include="src\Engine\Component\Component.h" />
-    <ClInclude Include="src\Engine\Component\LifetimeComponent.h" />
-    <ClInclude Include="src\Engine\Component\ParticleComponent.h" />
-    <ClInclude Include="src\Engine\Component\TransformComponent.h" />
-    <ClInclude Include="src\Engine\Entity\Entity.h" />
-    <ClInclude Include="src\Engine\EntityAdmin.h" />
+    <ClInclude Include="src\Components\CircleComponent.h" />
+    <ClInclude Include="src\Components\InitialTransformComponent.h" />
+    <ClInclude Include="src\Components\MouseInputComponent.h" />
+    <ClInclude Include="src\Components\TransformComponent.h" />
+    <ClInclude Include="src\StarlightEngine\Component\Component.h" />
+    <ClInclude Include="src\StarlightEngine\Component\ComponentManager.h" />
+    <ClInclude Include="src\StarlightEngine\Component\IComponent.h" />
+    <ClInclude Include="src\StarlightEngine\Starlight.h" />
+    <ClInclude Include="src\StarlightEngine\Entity\EntityManager.h" />
+    <ClInclude Include="src\StarlightEngine\Entity\IEntity.h" />
+    <ClInclude Include="src\StarlightEngine\System\ISystem.h" />
+    <ClInclude Include="src\StarlightEngine\System\SystemManager.h" />
+    <ClInclude Include="src\StarlightEngine\Utils\TypeWrapper.h" />
+    <ClInclude Include="src\StarlightEngine\Entity\Entity.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Renderer.h" />
-    <ClInclude Include="src\Engine\Utils\Vector2.h" />
-    <ClInclude Include="src\Engine\System\System.h" />
+    <ClInclude Include="src\Vector2.h" />
+    <ClInclude Include="src\StarlightEngine\System\System.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
