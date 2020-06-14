@@ -167,11 +167,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Components\CircleComponent.cpp" />
     <ClCompile Include="src/main.cpp" />
-    <ClCompile Include="src\Components\InitialTransformComponent.cpp" />
-    <ClCompile Include="src\Components\MouseInputComponent.cpp" />
-    <ClCompile Include="src\Components\TransformComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Components\CircleComponent.h" />
@@ -180,17 +176,16 @@
     <ClInclude Include="src\Components\TransformComponent.h" />
     <ClInclude Include="src\StarlightEngine\Component\Component.h" />
     <ClInclude Include="src\StarlightEngine\Component\ComponentManager.h" />
-    <ClInclude Include="src\StarlightEngine\Component\IComponent.h" />
+    <ClInclude Include="src\StarlightEngine\Entity\EntityMap.h" />
     <ClInclude Include="src\StarlightEngine\Starlight.h" />
     <ClInclude Include="src\StarlightEngine\Entity\EntityManager.h" />
-    <ClInclude Include="src\StarlightEngine\Entity\IEntity.h" />
-    <ClInclude Include="src\StarlightEngine\System\ISystem.h" />
     <ClInclude Include="src\StarlightEngine\System\SystemManager.h" />
     <ClInclude Include="src\StarlightEngine\Utils\TypeWrapper.h" />
     <ClInclude Include="src\StarlightEngine\Entity\Entity.h" />
     <ClInclude Include="src\GameLoop.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Systems\UpMoveSystem.h" />
     <ClInclude Include="src\Vector2.h" />
     <ClInclude Include="src\StarlightEngine\System\System.h" />
   </ItemGroup>

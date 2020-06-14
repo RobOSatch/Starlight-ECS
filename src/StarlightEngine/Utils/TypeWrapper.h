@@ -7,5 +7,6 @@ namespace Starlight
 	
 	using ComponentID = ObjectID;
 	using EntityID = ObjectID;
+	
 }
 

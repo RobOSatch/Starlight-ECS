@@ -1,16 +1,12 @@
 #pragma once
-#include <Entity/IEntity.h>
+#include <Utils/TypeWrapper.h>
 
 namespace Starlight
 {
-	template<class T>
-	class Entity : public IEntity
-	{
+	struct Entity {
+		EntityID id;
 
-	public:
-		Entity() {}
-		virtual ~Entity() {}
-
+		friend bool operator<(const Entity& l, const Entity& r) { return l.id < r.id; }
 	};
 }
 

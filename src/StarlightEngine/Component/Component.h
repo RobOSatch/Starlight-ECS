@@ -1,18 +1,31 @@
 #pragma once
-#include "IComponent.h"
+#include <type_traits>
 
 namespace Starlight
 {
-	template<class T>
-	class Component : public IComponent
-	{
-	public:
-		static const size_t STATIC_COMPONENT_TYPE_ID;
 
-		Component() {}
-		~Component() {}
+	struct ComponentTypeCounter
+	{
+		static size_t COMPONENT_TYPE_COUNTER;
 	};
 
-	template<class T>
-	const ComponentID Component<T>::STATIC_COMPONENT_TYPE_ID = -1;
+	template<typename T>
+	struct Component
+	{
+	public:
+		static size_t ComponentTypeId()
+		{
+			static size_t componentTypeId = ComponentTypeCounter::COMPONENT_TYPE_COUNTER++;
+			return componentTypeId;
+		}
+	};
+
+	template<typename T>
+	static size_t GetComponentTypeId()
+	{
+		//TODO:WTF IS THIS
+		return Component<typename std::remove_const<T>::type>::ComponentTypeId();
+	}
+
+	size_t ComponentTypeCounter::COMPONENT_TYPE_COUNTER = 0;
 }

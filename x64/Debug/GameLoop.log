@@ -1,2 +1,13 @@
-﻿  TransformComponent.cpp
+﻿  main.cpp
+C:\Users\robar\source\repos\GED-ECS\src\StarlightEngine\Starlight.h(77,1): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\robar\source\repos\GED-ECS\src\StarlightEngine\Starlight.h(55): message : see reference to function template instantiation 'Starlight::ComponentManager<ComponentType> *Starlight::Engine::GetComponentManager<ComponentType>(void)' being compiled
+          with
+          [
+              ComponentType=TransformComponent
+          ]
+C:\Users\robar\source\repos\GED-ECS\src\main.cpp(50): message : see reference to function template instantiation 'void Starlight::Engine::AddComponent<TransformComponent>(const Starlight::Entity &,ComponentType &&)' being compiled
+          with
+          [
+              ComponentType=TransformComponent
+          ]
   GameLoop.vcxproj -> C:\Users\robar\source\repos\GED-ECS\bin\GameLoop.exe
