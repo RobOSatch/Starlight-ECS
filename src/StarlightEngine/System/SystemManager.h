@@ -20,7 +20,7 @@ namespace Starlight
 			}
 		}
 
-		void init()
+		void Init()
 		{
 			for (System* system : m_systems) {
 				system->Init();

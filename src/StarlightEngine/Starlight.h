@@ -25,7 +25,10 @@ namespace Starlight
 		}
 
 		
-		void Init() {};
+		void Init()
+		{
+			m_systemManager.get()->Init();
+		};
 		void Update(float dt) { m_systemManager.get()->Update(dt);}
 		 
 		Entity CreateEntity() { return m_entityManager.get()->CreateEntity();};
@@ -87,7 +90,7 @@ namespace Starlight
 			}
 
 			if (!m_componentManagers[componentTypeId]) {
-				m_componentManagers[componentTypeId] = std::make_unique<ComponentManager<T>>();
+				m_componentManagers[componentTypeId] = std::make_unique<ComponentManager<T>>(this);
 			}
 
 			return static_cast<ComponentManager<T>*>(m_componentManagers[componentTypeId].get());

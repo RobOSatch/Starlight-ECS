@@ -23,13 +23,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\GameObject.h">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="src\Renderer.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="src\GameLoop.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\StarlightEngine\Component\Component.h">
@@ -55,5 +49,8 @@
     <ClInclude Include="src\Components\MouseInputComponent.h" />
     <ClInclude Include="src\StarlightEngine\Entity\EntityMap.h" />
     <ClInclude Include="src\Systems\UpMoveSystem.h" />
+    <ClInclude Include="src\Systems\RenderSystem.h" />
+    <ClInclude Include="src\Systems\InputSystem.h" />
+    <ClInclude Include="src\Systems\PlayerMoveSystem.h" />
   </ItemGroup>
 </Project>
