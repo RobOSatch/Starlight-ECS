@@ -6,7 +6,7 @@
 
 namespace Starlight
 {
-	const size_t MAX_COMPONENTS = 1024;
+	const size_t MAX_COMPONENTS = 0x00FFFFFF;
 	using ComponentId = size_t;
 
 	struct EntityMap

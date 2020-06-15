@@ -26,7 +26,7 @@ namespace Starlight
 			m_registeredComponents.push_back(GetComponentTypeId<ComponentType>());
 		}
 
-		void AddEntity(Entity* entity)
+		void AddEntity(Entity entity)
 		{
 			this->m_registeredEntities.push_back(entity);
 		}
@@ -36,6 +36,6 @@ namespace Starlight
 	protected:
 		Engine* engine;
 		std::vector<size_t> m_registeredComponents;
-		std::vector<Entity*> m_registeredEntities;
+		std::vector<Entity> m_registeredEntities;
 	};
 }

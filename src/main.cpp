@@ -57,33 +57,30 @@ int main(int argc, char* argv[])
 	starlightEngine->AddComponent(player, MouseInputComponent(mouseComponent));
 	
 	//TODO: Do bitmasks, this is absolutely disgusting
-	inputSystem->AddEntity(&player);
-	playerMoveSystem->AddEntity(&player);
-	renderSystem->AddEntity(&player);
+	inputSystem->AddEntity(player);
+	playerMoveSystem->AddEntity(player);
+	renderSystem->AddEntity(player);
 
 	srand(time(NULL));
-	renderComponent.m_Radius = 5;	
-	for(int i = 0; i < 100; ++i)
+	renderComponent.m_Radius = 2;
+	
+	renderComponent.m_Color = Color{ 0, 0, 255, 1 };
+	for(int i = 0; i < 1000; ++i)
 	{		
 		// Add entities
  		Starlight::Entity particle = starlightEngine->CreateEntity();
-		
-		TransformComponent componentParticle;
-		componentParticle.m_Rotation = Vector2(0.0f, 0.0f);
-		componentParticle.m_Scale = Vector2(0.0f, 0.0f);
-		componentParticle.m_Position = Vector2(i, i);
-		starlightEngine->AddComponent(particle, TransformComponent(componentParticle));
+		component.m_Position = Vector2(rand() % wndWidth, rand() % wndHeight);
+		starlightEngine->AddComponent(particle, TransformComponent(component));
 		starlightEngine->AddComponent(particle, RenderComponent(renderComponent));
 		
 		//TODO: Do bitmasks, this is absolutely disgusting 
-		renderSystem->AddEntity(&particle);
+		renderSystem->AddEntity(particle);
 	}	
 
 	
 	while (true)
 	{
 		starlightEngine->Update(0.33f);
-		SDL_Delay(0.33f);
 	}
 	
 	return 0;

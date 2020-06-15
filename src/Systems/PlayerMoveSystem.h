@@ -11,8 +11,8 @@ class PlayerMoveSystem : public Starlight::System
 	{
 		for (auto entity : m_registeredEntities)
 		{
-			auto* input = engine->GetComponentManager<MouseInputComponent>()->GetComponent(*entity);
-			auto* transform = engine->GetComponentManager<TransformComponent>()->GetComponent(*entity);
+			auto* input = engine->GetComponentManager<MouseInputComponent>()->GetComponent(entity);
+			auto* transform = engine->GetComponentManager<TransformComponent>()->GetComponent(entity);
 
 			transform->m_Position = input->m_Position;
 		}

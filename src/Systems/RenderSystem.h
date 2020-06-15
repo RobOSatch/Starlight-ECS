@@ -29,8 +29,8 @@ public:
 
 		for (auto entity : m_registeredEntities)
 		{
-			auto* transform = engine->GetComponentManager<TransformComponent>()->GetComponent(*entity);
-			auto* render = engine->GetComponentManager<RenderComponent>()->GetComponent(*entity);
+			auto* transform = engine->GetComponentManager<TransformComponent>()->GetComponent(entity);
+			auto* render = engine->GetComponentManager<RenderComponent>()->GetComponent(entity);
 
 			Vector2 pos = transform->m_Position;
 			Color color = render->m_Color;

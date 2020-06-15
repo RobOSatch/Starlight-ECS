@@ -17,7 +17,7 @@ class InputSystem : public Starlight::System
 	{
 		for (auto entity : m_registeredEntities)
 		{
-			auto* input = engine->GetComponentManager<MouseInputComponent>()->GetComponent(*entity);
+			auto* input = engine->GetComponentManager<MouseInputComponent>()->GetComponent(entity);
 			int x, y;
 			SDL_GetMouseState(&x, &y);
 			Vector2 pos;
