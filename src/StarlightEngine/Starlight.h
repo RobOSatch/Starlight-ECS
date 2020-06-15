@@ -15,13 +15,19 @@ namespace Starlight
 	class Engine
 	{
 	public:		
-		Engine(std::unique_ptr<EntityManager> entityManager) : m_entityManager(std::move(entityManager)) {}
-		~Engine();
+		Engine(std::unique_ptr<EntityManager> entityManager) : m_entityManager(std::move(entityManager))
+		{
+			m_systemManager = std::make_unique<Starlight::SystemManager>();
+		}
+		~Engine()
+		{
+			m_systemManager.reset();
+		}
 
 		
 		void Init() {};
 		void Update(float dt) { m_systemManager.get()->Update(dt);}
-
+		 
 		Entity CreateEntity() { return m_entityManager.get()->CreateEntity();};
 		void AddSystem(System* system){
 			system->RegisterEngine(this);
