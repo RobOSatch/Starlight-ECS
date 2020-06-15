@@ -52,5 +52,7 @@
     <ClInclude Include="src\Systems\RenderSystem.h" />
     <ClInclude Include="src\Systems\InputSystem.h" />
     <ClInclude Include="src\Systems\PlayerMoveSystem.h" />
+    <ClInclude Include="src\Components\ParticleComponent.h" />
+    <ClInclude Include="src\Systems\ParticleMoveSystem.h" />
   </ItemGroup>
 </Project>

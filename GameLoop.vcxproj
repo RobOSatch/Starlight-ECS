@@ -173,6 +173,7 @@
     <ClInclude Include="src\Components\CircleComponent.h" />
     <ClInclude Include="src\Components\InitialTransformComponent.h" />
     <ClInclude Include="src\Components\MouseInputComponent.h" />
+    <ClInclude Include="src\Components\ParticleComponent.h" />
     <ClInclude Include="src\Components\TransformComponent.h" />
     <ClInclude Include="src\StarlightEngine\Component\Component.h" />
     <ClInclude Include="src\StarlightEngine\Component\ComponentManager.h" />
@@ -184,6 +185,7 @@
     <ClInclude Include="src\StarlightEngine\Entity\Entity.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Systems\InputSystem.h" />
+    <ClInclude Include="src\Systems\ParticleMoveSystem.h" />
     <ClInclude Include="src\Systems\PlayerMoveSystem.h" />
     <ClInclude Include="src\Systems\RenderSystem.h" />
     <ClInclude Include="src\Systems\UpMoveSystem.h" />

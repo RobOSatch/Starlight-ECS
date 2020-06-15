@@ -13,4 +13,3 @@ public:
 	Color m_Color;
 	float m_Radius;
 };
-
