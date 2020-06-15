@@ -27,7 +27,7 @@ class ParticleMoveSystem : public Starlight::System
 			{
 				render->m_Color = { 0, 0, 255, 1 };
 				direction = particle->originalPos - transform->m_Position;
-				transform->m_Position += direction.Normalize() * 5.0f;
+				transform->m_Position = Vector2::Lerp(transform->m_Position, particle->originalPos, 0.05f);
 			}
 		}
 	}

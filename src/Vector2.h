@@ -56,6 +56,11 @@ public:
 		return Vector2(-x, -y);
 	}
 
+	inline bool operator==(const Vector2& rhs)
+	{
+		return (this->x == rhs.x && this->y == rhs.y);
+	}
+
 	inline Vector2& operator=(const Vector2& rhs)
 	{
 		if (this == &rhs)
@@ -203,5 +208,10 @@ public:
 		y /= s;
 
 		return *this;
+	}
+
+	static inline Vector2 Lerp(Vector2 v0, Vector2 v1, float t)
+	{
+		return v0 * (1 - t) + v1 * t;
 	}
 };
