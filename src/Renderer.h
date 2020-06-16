@@ -54,6 +54,11 @@ public:
 		if (ShouldExit()) exit(0);
 	}
 
+	SDL_Window* getWindow() const
+	{
+		return window;
+	}
+
 	void DrawRect(int x, int y, int width, int height, Uint8 r, Uint8 g, Uint8 b)
 	{
 		SDL_Rect rect;
@@ -61,8 +66,6 @@ public:
 		rect.y = y - height/2.0;
 		rect.w = width;
 		rect.h = height;
-
-		AddDebugPoint(x, y);
 
 		SDL_SetRenderDrawColor(renderer, r, g, b, 255);
 		SDL_RenderFillRect(renderer, &rect);

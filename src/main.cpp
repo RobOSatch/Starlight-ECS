@@ -4,6 +4,7 @@
 #include "Components/TransformComponent.h"
 #include "Components/CircleComponent.h"
 #include "Components/MouseInputComponent.h"
+#include "Components/TagComponent.h"
 
 #include "Systems/UpMoveSystem.h"
 #include "Systems/RenderSystem.h"
@@ -14,6 +15,10 @@
 #include "Entity/ComponentContainer.h"
 
 #include <time.h>
+#include <omp.h>
+#include <string>
+#include < chrono >
+#include <Windows.h>
 
 int main(int argc, char* argv[])
 {
@@ -53,45 +58,77 @@ int main(int argc, char* argv[])
 
 	MouseInputComponent mouseComponent;
 	mouseComponent.m_Position = component.m_Position;
+	singletonInput = &mouseComponent;
 
 	ParticleComponent particleC;
-	particleC.triggerRadius = 100.0f;
+	particleC.triggerRadius = 90.0f;
+
+	TagComponent playerTag;
+	playerTag.tag = 0;
 	
 	// Add entities
  	Starlight::Entity player = starlightEngine->CreateEntity();
 	starlightEngine->AddComponent(player, TransformComponent(component));
 	starlightEngine->AddComponent(player, RenderComponent(renderComponent));
-	starlightEngine->AddComponent(player, MouseInputComponent(mouseComponent));
+	//starlightEngine->AddComponent(player, MouseInputComponent(mouseComponent));
+	starlightEngine->AddComponent(player, TagComponent(playerTag));
+
+	Starlight::Entity mouse = starlightEngine->CreateEntity();
+	//starlightEngine->AddComponent(mouse, MouseInputComponent(mouseComponent));
 	
 	// TODO: Do bitmasks, this is absolutely disgusting
-	inputSystem->AddEntity(player);
-	playerMoveSystem->AddEntity(player);
-	renderSystem->AddEntity(player);
+	//inputSystem->AddEntity(player);
+	//playerMoveSystem->AddEntity(player);
+	//renderSystem->AddEntity(player);
 
 	srand(time(NULL));
-	renderComponent.m_Radius = 3;
+	renderComponent.m_Radius = 5;
 	
 	renderComponent.m_Color = Color{ 0, 0, 255, 1 };
-	for(int i = 0; i < 1000; ++i)
-	{		
+	for(int i = 0; i < 10000; ++i)
+	{
 		// Add entities
  		Starlight::Entity particle = starlightEngine->CreateEntity();
 		component.m_Position = Vector2(rand() % wndWidth, rand() % wndHeight);
+		//component.m_Position = Vector2((i) % wndWidth, ((i * 5) % wndWidth * 5) % wndHeight);
 		particleC.originalPos = component.m_Position;
 		starlightEngine->AddComponent(particle, TransformComponent(component));
 		starlightEngine->AddComponent(particle, RenderComponent(renderComponent));
-		starlightEngine->AddComponent(particle, MouseInputComponent(mouseComponent));
+		//starlightEngine->AddComponent(particle, MouseInputComponent(mouseComponent));
 		starlightEngine->AddComponent(particle, ParticleComponent(particleC));
 		
 		//TODO: Do bitmasks, this is absolutely disgusting 
-		renderSystem->AddEntity(particle);
-		inputSystem->AddEntity(particle);
-		particleMoveSystem->AddEntity(particle);
+		//renderSystem->AddEntity(particle);
+		//inputSystem->AddEntity(particle);
+		//particleMoveSystem->AddEntity(particle);
 	}
 	
+	std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
+	std::chrono::high_resolution_clock::time_point lastFrame = std::chrono::high_resolution_clock::now();
+
+#define FPS_INTERVAL 1.0 //seconds.
+
+	Uint32 fps_lasttime = SDL_GetTicks(); //the last recorded time.
+	Uint32 fps_current; //the current FPS.
+	Uint32 fps_frames = 0; //frames passed since the last recorded fps.
+
 	while (true)
 	{
-		starlightEngine->Update(0.33f);
+		now = std::chrono::high_resolution_clock::now();
+		int delta = std::chrono::duration_cast<std::chrono::milliseconds>(now - lastFrame).count();
+		lastFrame = now;
+
+		starlightEngine->Update(delta);
+
+		fps_frames++;
+		if (fps_lasttime < SDL_GetTicks() - FPS_INTERVAL * 1000)
+		{
+			fps_lasttime = SDL_GetTicks();
+			fps_current = fps_frames;
+			fps_frames = 0;
+			SDL_SetWindowTitle(renderer.getWindow(), std::to_string(fps_current).c_str());
+
+		}
 	}
 	
 	return 0;

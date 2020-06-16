@@ -21,6 +21,8 @@
     <ClCompile Include="src/main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\StarlightEngine\Component\ComponentTypeBitmask.h" />
+    <ClCompile Include="src\StarlightEngine\Component\Component.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Renderer.h">
@@ -54,5 +56,6 @@
     <ClInclude Include="src\Systems\PlayerMoveSystem.h" />
     <ClInclude Include="src\Components\ParticleComponent.h" />
     <ClInclude Include="src\Systems\ParticleMoveSystem.h" />
+    <ClInclude Include="src\Components\TagComponent.h" />
   </ItemGroup>
 </Project>

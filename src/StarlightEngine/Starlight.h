@@ -29,6 +29,7 @@ namespace Starlight
 		{
 			m_systemManager.get()->Init();
 		};
+
 		void Update(float dt) { m_systemManager.get()->Update(dt);}
 		 
 		Entity CreateEntity() { return m_entityManager.get()->CreateEntity();};
@@ -63,6 +64,8 @@ namespace Starlight
 		void AddComponent(Entity const &entity, ComponentType &&component) {
 			ComponentManager<ComponentType> *manager = GetComponentManager<ComponentType>();
 			manager->AddComponent(entity, component);
+
+			m_systemManager->AddComponentType<ComponentType>(entity);
 		}
 
 
@@ -95,5 +98,7 @@ namespace Starlight
 
 			return static_cast<ComponentManager<T>*>(m_componentManagers[componentTypeId].get());
 		}
+
+	private:
 	};
 }
