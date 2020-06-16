@@ -7,6 +7,4 @@ struct TransformComponent : public Starlight::Component<TransformComponent>
 {
 public:
 	Vector2 m_Position;
-	Vector2 m_Rotation;
-	Vector2 m_Scale;
 };
