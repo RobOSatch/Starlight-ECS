@@ -2,13 +2,15 @@
 #include <bitset>
 #include <vector>
 #include <Entity/Entity.h>
+#include <System/ISystem.h>
 #include <Component/ComponentTypeBitmask.h>
 
 namespace Starlight
 {	
 	class Engine;
 
-	class System
+	template<typename TupleType>
+	class System : public ISystem
 	{
 	public:
 		System() = default;
@@ -16,34 +18,37 @@ namespace Starlight
 
 		virtual void Init() {};
 
-		void RegisterEngine(Engine* engine)
+		void ActualUpdate(float dt)
 		{
-			this->engine = engine;
+			if (m_isCacheValid)
+			{
+				Update(&m_tuples, dt);
+			}
+			else
+			{
+				m_cacheSize = 0;
+				m_isCacheValid = true;
+				for (int i = 0; i < m_registeredEntities.size(); i++)
+				{
+					m_cacheSize++;
+
+					auto entity = &m_registeredEntities[i];
+					TupleType t = MakeTuple(*entity);
+
+					m_tuples.at(i) = t;
+				}
+				
+				Update(&m_tuples, dt);
+			}
 		}
 
-		template<typename T>
-		void AddComponentType()
-		{
-			m_bitmask.AddComponent<T>();
-		}
+		virtual void Update(std::array<TupleType, 0x000FFFFF>* tuples, float dt) = 0;
 
-		void AddEntity(Entity entity)
-		{
-			this->m_registeredEntities.push_back(entity);
-		}
-
-		virtual void Update(float dt) = 0;
-
-		ComponentTypeBitmask GetBitmask()
-		{
-			return m_bitmask;
-		}
+		virtual TupleType MakeTuple(Entity e) = 0;
 
 	protected:
-		Engine* engine;
-		std::vector<size_t> m_registeredComponents;
-		std::vector<Entity> m_registeredEntities;
-
-		ComponentTypeBitmask m_bitmask;
+		
+		
+		std::array<TupleType, 0x000FFFFF> m_tuples;
 	};
 }

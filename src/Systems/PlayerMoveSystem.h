@@ -5,7 +5,13 @@
 #include <iostream>
 #include <Entity/Entity.h>
 
-class PlayerMoveSystem : public Starlight::System
+struct PlayerTuple
+{
+	TransformComponent* transform;
+	TagComponent* tag;
+};
+
+class PlayerMoveSystem : public Starlight::System<PlayerTuple>
 {
 	void Init()
 	{
@@ -14,14 +20,21 @@ class PlayerMoveSystem : public Starlight::System
 		this->AddComponentType<TagComponent>();
 	}
 
-	void Update(float deltaTime)
+	PlayerTuple MakeTuple(Starlight::Entity e)
 	{
-		for (auto entity : m_registeredEntities)
-		{
-			auto* input = singletonInput;
-			//auto* input = engine->GetComponentManager<MouseInputComponent>()->GetComponent(entity);
-			auto* transform = engine->GetComponentManager<TransformComponent>()->GetComponent(entity);
+		auto* transform = engine->GetComponentManager<TransformComponent>()->GetComponent(e);
+		auto* tag = engine->GetComponentManager<TagComponent>()->GetComponent(e);
 
+		return { transform, tag};
+	}
+
+	
+	void Update(std::array<PlayerTuple, 0x000FFFFF>* tuples, float dt)
+	{
+		auto* input = singletonInput;
+		for (auto it = tuples->begin(); it != tuples->begin() + m_cacheSize; ++it)
+		{
+			auto* transform = it->transform;
 			transform->m_Position = input->m_Position;
 		}
 	}

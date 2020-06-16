@@ -14,7 +14,7 @@ namespace Starlight
 
 	class Engine
 	{
-	public:		
+	public:
 		Engine(std::unique_ptr<EntityManager> entityManager) : m_entityManager(std::move(entityManager))
 		{
 			m_systemManager = std::make_unique<Starlight::SystemManager>();
@@ -24,31 +24,31 @@ namespace Starlight
 			m_systemManager.reset();
 		}
 
-		
+
 		void Init()
 		{
-			m_systemManager.get()->Init();
+			m_systemManager.get()->Init(this);
 		};
 
-		void Update(float dt) { m_systemManager.get()->Update(dt);}
-		 
-		Entity CreateEntity() { return m_entityManager.get()->CreateEntity();};
-		void AddSystem(System* system){
+		void Update(float dt) { m_systemManager.get()->Update(dt); }
+
+		Entity CreateEntity() { return m_entityManager.get()->CreateEntity(); };
+		void AddSystem(ISystem* system) {
 			system->RegisterEngine(this);
 			m_systemManager.get()->AddSystem(system);
 		}
 
-		
-//		void DestroyEntity(Entity entity) {
-//			for (auto& system : systems) {
-//				system->unRegisterEntity(entity);
-//			}
-//
-//			m_entityManager->destroy(entity);
-//		}
 
-		
-		
+		//		void DestroyEntity(Entity entity) {
+		//			for (auto& system : systems) {
+		//				system->unRegisterEntity(entity);
+		//			}
+		//
+		//			m_entityManager->destroy(entity);
+		//		}
+
+
+
 		template <typename ComponentType>
 		void AddCustomComponentManager(std::unique_ptr<ComponentManager<ComponentType>> manager) {
 			int componentTypeId = GetComponentTypeId<ComponentType>();
@@ -59,25 +59,25 @@ namespace Starlight
 		}
 
 
-				
+
 		template <typename ComponentType>
-		void AddComponent(Entity const &entity, ComponentType &&component) {
-			ComponentManager<ComponentType> *manager = GetComponentManager<ComponentType>();
+		void AddComponent(Entity const& entity, ComponentType&& component) {
+			ComponentManager<ComponentType>* manager = GetComponentManager<ComponentType>();
 			manager->AddComponent(entity, component);
 
 			m_systemManager->AddComponentType<ComponentType>(entity);
 		}
 
+		template <typename ComponentType>
+		void RemoveComponent(Entity const& entity) {
+			ComponentManager<ComponentType>* manager = GetComponentManager<ComponentType>();
+			ComponentType* component = manager->GetComponent(entity);
+			m_systemManager->RemoveComponentType<ComponentType>(entity);
+			manager->RemoveComponent(entity);
 
+			m_systemManager->InvalidateCaches();
+		}
 		
-//		template <typename ComponentType>
-//		void RemoveComponent(Entity const &entity) {
-//			ComponentManager<ComponentType> *manager = GetComponentManager<ComponentType>();
-//			ComponentId component = manager->GetComponent(entity);
-//			manager->RemoveComponent(
-//			component.Destroy();
-//		}		
-
 		std::unique_ptr<EntityManager> m_entityManager;
 		std::unique_ptr<SystemManager> m_systemManager;
 		std::vector<std::unique_ptr<IComponentManager>> m_componentManagers;

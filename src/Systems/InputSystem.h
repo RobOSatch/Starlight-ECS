@@ -6,17 +6,26 @@
 #include <SDL.h>
 
 MouseInputComponent* singletonInput;
-class InputSystem : public Starlight::System
+
+struct InputTuple
+{
+};
+
+class InputSystem : public Starlight::System<InputTuple>
 {
 	void Init()
 	{
 		//this->AddComponentType<MouseInputComponent>();
 	}
-
-	void Update(float deltaTime)
+	
+	// Not needed because singleton
+	InputTuple MakeTuple(Starlight::Entity e)
 	{
-		//auto inputComponents = engine->GetComponentManager<MouseInputComponent>()->GetIterator();
+		return {};
+	}
 
+	void Update(std::array<InputTuple, 0x000FFFFF>* tuples, float dt)
+	{
 		int x, y;
 		SDL_GetMouseState(&x, &y);
 		Vector2 pos;
@@ -24,18 +33,5 @@ class InputSystem : public Starlight::System
 		pos.y = y;
 
 		singletonInput->m_Position = pos;
-
-		/*for (auto entity : m_registeredEntities)
-		{
-			auto* input = engine->GetComponentManager<MouseInputComponent>()->GetComponent(entity);
-			int x, y;
-			SDL_GetMouseState(&x, &y);
-			Vector2 pos;
-			pos.x = x;
-			pos.y = y;
-
-			input->m_Position = pos;
-		}*/
-
 	}
 };

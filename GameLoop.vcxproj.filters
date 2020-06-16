@@ -50,12 +50,13 @@
     <ClInclude Include="src\Components\InitialTransformComponent.h" />
     <ClInclude Include="src\Components\MouseInputComponent.h" />
     <ClInclude Include="src\StarlightEngine\Entity\EntityMap.h" />
-    <ClInclude Include="src\Systems\UpMoveSystem.h" />
     <ClInclude Include="src\Systems\RenderSystem.h" />
     <ClInclude Include="src\Systems\InputSystem.h" />
     <ClInclude Include="src\Systems\PlayerMoveSystem.h" />
     <ClInclude Include="src\Components\ParticleComponent.h" />
     <ClInclude Include="src\Systems\ParticleMoveSystem.h" />
     <ClInclude Include="src\Components\TagComponent.h" />
+    <ClInclude Include="src\StarlightEngine\System\ISystem.h" />
+    <ClInclude Include="src\Systems\ArmageddonSystem.h" />
   </ItemGroup>
 </Project>

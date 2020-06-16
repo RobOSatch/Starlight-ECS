@@ -193,15 +193,16 @@
     <ClInclude Include="src\StarlightEngine\Entity\EntityMap.h" />
     <ClInclude Include="src\StarlightEngine\Starlight.h" />
     <ClInclude Include="src\StarlightEngine\Entity\EntityManager.h" />
+    <ClInclude Include="src\StarlightEngine\System\ISystem.h" />
     <ClInclude Include="src\StarlightEngine\System\SystemManager.h" />
     <ClInclude Include="src\StarlightEngine\Utils\TypeWrapper.h" />
     <ClInclude Include="src\StarlightEngine\Entity\Entity.h" />
     <ClInclude Include="src\Renderer.h" />
+    <ClInclude Include="src\Systems\ArmageddonSystem.h" />
     <ClInclude Include="src\Systems\InputSystem.h" />
     <ClInclude Include="src\Systems\ParticleMoveSystem.h" />
     <ClInclude Include="src\Systems\PlayerMoveSystem.h" />
     <ClInclude Include="src\Systems\RenderSystem.h" />
-    <ClInclude Include="src\Systems\UpMoveSystem.h" />
     <ClInclude Include="src\Vector2.h" />
     <ClInclude Include="src\StarlightEngine\System\System.h" />
   </ItemGroup>

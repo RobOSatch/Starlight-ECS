@@ -56,12 +56,13 @@ namespace Starlight
 		{
 			ComponentId id = m_entityMap.GetComponent(entity);
 
-			ComponentId componentToMove = m_componentList.size--;
-			m_componentList.data[id] = m_componentList.data[componentToMove];
+			ComponentId componentToMove = m_componentList.size - 1;
+			m_componentList.data->at(id) = m_componentList.data->at(componentToMove);
 			Entity entityToMove = m_entityMap.GetEntity(componentToMove);
 
 			m_entityMap.Delete(entity);
-			m_entityMap.Update(entityToMove, id);
+
+			if (entity.id != entityToMove.id) m_entityMap.Update(entityToMove, id);
 
 			m_componentList.size--;
 		}
@@ -71,6 +72,7 @@ namespace Starlight
 			ComponentId id = m_entityMap.GetComponent(entity);
 			return &m_componentList.data->at(id);
 		}
+		
 
 		class Iterator;
 

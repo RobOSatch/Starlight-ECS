@@ -1,28 +1,32 @@
 #pragma once
 #include <System/System.h>
+#include <Starlight.h>
 #include <vector>
+#include <Component/ComponentTypeBitmask.h>
 
 namespace Starlight
 {
 	class SystemManager
 	{
 	public:
-		void AddSystem(System* system)
+		void AddSystem(ISystem* system)
 		{
 			m_systems.push_back(system);
 		}
 
 		void Update(float deltaTime)
 		{
-			for (System* s : m_systems)
+			for (ISystem* s : m_systems)
 			{
-				s->Update(deltaTime);
+				s->ActualUpdate(deltaTime);
 			}
 		}
 
-		void Init()
+		void Init(Starlight::Engine* engine)
 		{
-			for (System* system : m_systems) {
+			this->m_engine = engine;
+
+			for (ISystem* system : m_systems) {
 				system->Init();
 			}
 		}
@@ -36,7 +40,7 @@ namespace Starlight
 				ComponentTypeBitmask systemBitmask = system->GetBitmask();
 
 				if (bitmask.IsNowMatched(oldBitmask, systemBitmask)) system->AddEntity(entity);
-				//else if (bitmask.IsNowUnmatched(oldBitmask, systemBitmask)) system->RemoveEntity(entity);
+				else if (bitmask.IsNowUnmatched(oldBitmask, systemBitmask)) system->RemoveEntity(entity);
 			}
 		}
 
@@ -49,8 +53,25 @@ namespace Starlight
 			UpdateBitmask(entity, bitmask);
 		}
 
+		template<typename T>
+		void RemoveComponentType(Entity const& entity)
+		{
+			ComponentTypeBitmask oldMask = m_bitmaskMap[entity];
+			m_bitmaskMap[entity].RemoveComponent<T>();
+			UpdateBitmask(entity, oldMask);
+		}
+
+		void InvalidateCaches()
+		{
+			for (auto* s : m_systems)
+			{
+				s->InvalidateCache();
+			}
+		}
+
 	protected:
 		std::map<Entity, ComponentTypeBitmask> m_bitmaskMap;
-		std::vector<System*> m_systems;
+		std::vector<ISystem*> m_systems;
+		Starlight::Engine* m_engine;
 	};
 }
