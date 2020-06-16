@@ -14,6 +14,8 @@
 #include "Entity/ComponentContainer.h"
 
 #include <time.h>
+#include <chrono>
+#include <string>
 
 int main(int argc, char* argv[])
 {
@@ -44,8 +46,6 @@ int main(int argc, char* argv[])
 	// Setup components
 	TransformComponent component;
 	component.m_Position = Vector2(0.0f, 0.0f);
-	component.m_Rotation = Vector2(0.0f, 0.0f);
-	component.m_Scale = Vector2(0.0f, 0.0f);
 	
 	RenderComponent renderComponent;
 	renderComponent.m_Color = Color{ 255, 0, 255, 1 };
@@ -69,10 +69,10 @@ int main(int argc, char* argv[])
 	renderSystem->AddEntity(player);
 
 	srand(time(NULL));
-	renderComponent.m_Radius = 3;
+	renderComponent.m_Radius = 2;
 	
-	renderComponent.m_Color = Color{ 0, 0, 255, 1 };
-	for(int i = 0; i < 1000; ++i)
+	renderComponent.m_Color = Color{ 0, 255, 255, 1 };
+	for(int i = 0; i < 10000; ++i)
 	{		
 		// Add entities
  		Starlight::Entity particle = starlightEngine->CreateEntity();
@@ -89,9 +89,33 @@ int main(int argc, char* argv[])
 		particleMoveSystem->AddEntity(particle);
 	}
 	
+	std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
+	std::chrono::high_resolution_clock::time_point lastFrame = std::chrono::high_resolution_clock::now();
+
+	#define FPS_INTERVAL 1.0 //seconds.
+
+	Uint32 fps_lasttime = SDL_GetTicks(); //the last recorded time.
+	Uint32 fps_current; //the current FPS.
+	Uint32 fps_frames = 0; //frames passed since the last recorded fps.
+	
 	while (true)
 	{
-		starlightEngine->Update(0.33f);
+		now = std::chrono::high_resolution_clock::now();
+		float delta = std::chrono::duration_cast<std::chrono::seconds>(now - lastFrame).count();
+		lastFrame = now;
+		
+		starlightEngine->Update(delta);
+
+		fps_frames++;
+		if (fps_lasttime < SDL_GetTicks() - FPS_INTERVAL * 1000)
+		{
+			fps_lasttime = SDL_GetTicks();
+			fps_current = fps_frames;
+			fps_frames = 0;
+			SDL_SetWindowTitle(renderer.getWindow(), std::to_string(fps_current).c_str());
+
+		}
+		
 	}
 	
 	return 0;

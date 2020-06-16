@@ -117,6 +117,11 @@ public:
 			SDL_RenderDrawLine(renderer, x0 + x, y0 + y, x0 + x1, y0 + y1 );//quadrant BR
 	    }
 	}
+
+	SDL_Window* getWindow() const
+	{
+		return window;
+	}
 	
 private:
 

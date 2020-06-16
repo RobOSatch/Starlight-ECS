@@ -8,7 +8,5 @@ struct InitialTransformComponent : Starlight::Component<InitialTransformComponen
 {
 public:
 	Vector2 m_Position;
-	Vector2 m_Rotation;
-	Vector2 m_Scale;
 };
 

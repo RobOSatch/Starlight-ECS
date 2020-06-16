@@ -15,9 +15,12 @@ class InputSystem : public Starlight::System
 
 	void Update(float deltaTime)
 	{
-		for (auto entity : m_registeredEntities)
-		{
-			auto* input = engine->GetComponentManager<MouseInputComponent>()->GetComponent(entity);
+
+		auto* inputList = engine->GetComponentManager<MouseInputComponent>()->GetIterator()->componentList;
+		auto* input = &inputList->data->at(0);
+		//for (auto entity : m_registeredEntities)
+		//{
+		//	auto* input = engine->GetComponentManager<MouseInputComponent>()->GetComponent(entity);
 			int x, y;
 			SDL_GetMouseState(&x, &y);
 			Vector2 pos;
@@ -25,7 +28,7 @@ class InputSystem : public Starlight::System
 			pos.y = y;
 
 			input->m_Position = pos;
-		}
+		//}
 
 	}
 };

@@ -6,7 +6,6 @@
 #include <System/System.h>
 #include <SDL.h>
 
-
 class RenderSystem : public Starlight::System
 {
 	Renderer* renderer;
@@ -25,19 +24,34 @@ public:
 
 	void Update(float deltaTime)
 	{
-		renderer->BeginFrame();
 
-		for (auto entity : m_registeredEntities)
-		{
-			auto* transform = engine->GetComponentManager<TransformComponent>()->GetComponent(entity);
-			auto* render = engine->GetComponentManager<RenderComponent>()->GetComponent(entity);
-
-			Vector2 pos = transform->m_Position;
-			Color color = render->m_Color;
+			renderer->BeginFrame();
+			auto tranformList = engine->GetComponentManager<TransformComponent>()->GetIterator()->componentList;
 			
-			renderer->DrawRect(pos.x, pos.y, render->m_Radius, render->m_Radius, color.r, color.g, color.b);
-		}
+			auto renderList = engine->GetComponentManager<RenderComponent>()->GetIterator()->componentList;
 
-		renderer->EndFrame();
+			for (size_t t= 0; t < tranformList->size; t++)
+			{
+				auto* transform = &tranformList->data->at(t);
+				auto* render = &renderList->data->at(t);
+				Vector2 pos = transform->m_Position;
+				Color color = render->m_Color;
+
+				renderer->DrawRect(pos.x, pos.y, render->m_Radius, render->m_Radius, color.r, color.g, color.b);
+			}
+		
+			/*for (int64_t i = 0; i < m_registeredEntities.size(); ++i)
+			{
+				auto entity = m_registeredEntities[i];
+				auto* transform = engine->GetComponentManager<TransformComponent>()->GetComponent(entity);
+				auto* render = engine->GetComponentManager<RenderComponent>()->GetComponent(entity);
+
+				Vector2 pos = transform->m_Position;
+				Color color = render->m_Color;
+
+				renderer->DrawRect(pos.x, pos.y, render->m_Radius, render->m_Radius, color.r, color.g, color.b);
+			}*/
+
+			renderer->EndFrame();
 	}
 };
