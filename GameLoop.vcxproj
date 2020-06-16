@@ -100,13 +100,13 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>./sdl/include</AdditionalIncludeDirectories>
       <OpenMPSupport>true</OpenMPSupport>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Custom</Optimization>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>./sdl/lib/x86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\robar\source\repos\GED-ECS\sdl\lib\x64;./sdl/lib/x86</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -120,14 +120,14 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>./sdl/include</AdditionalIncludeDirectories>
       <OpenMPSupport>true</OpenMPSupport>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Custom</Optimization>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>./sdl/lib/x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\robar\source\repos\GED-ECS\sdl\lib\x64;./sdl/lib/x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -142,14 +142,14 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>./sdl/include</AdditionalIncludeDirectories>
       <OpenMPSupport>true</OpenMPSupport>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Custom</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>./sdl/lib/x86</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\robar\source\repos\GED-ECS\sdl\lib\x64;./sdl/lib/x86</AdditionalLibraryDirectories>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -165,7 +165,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>./sdl/include</AdditionalIncludeDirectories>
       <OpenMPSupport>true</OpenMPSupport>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Custom</Optimization>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -173,7 +173,7 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>SDL2.lib;SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>./sdl/lib/x64</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Users\robar\source\repos\GED-ECS\sdl\lib\x64;./sdl/lib/x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

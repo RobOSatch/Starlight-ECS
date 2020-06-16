@@ -49,8 +49,6 @@ int main(int argc, char* argv[])
 	// Setup components
 	TransformComponent component;
 	component.m_Position = Vector2(0.0f, 0.0f);
-	component.m_Rotation = Vector2(0.0f, 0.0f);
-	component.m_Scale = Vector2(0.0f, 0.0f);
 	
 	RenderComponent renderComponent;
 	renderComponent.m_Color = Color{ 255, 0, 255, 1 };
