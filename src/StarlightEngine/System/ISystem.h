@@ -1,5 +1,6 @@
 #pragma once
 #include <Component/ComponentTypeBitmask.h>
+
 namespace Starlight
 {	
 	class Engine;

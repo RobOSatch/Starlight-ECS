@@ -21,7 +21,6 @@
 
 int main(int argc, char* argv[])
 {
-
 	const size_t wndWidth = 1280;
 	const size_t wndHeight = 720;
 

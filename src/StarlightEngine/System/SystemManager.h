@@ -22,10 +22,8 @@ namespace Starlight
 			}
 		}
 
-		void Init(Starlight::Engine* engine)
+		void Init()
 		{
-			this->m_engine = engine;
-
 			for (ISystem* system : m_systems) {
 				system->Init();
 			}
@@ -72,6 +70,5 @@ namespace Starlight
 	protected:
 		std::map<Entity, ComponentTypeBitmask> m_bitmaskMap;
 		std::vector<ISystem*> m_systems;
-		Starlight::Engine* m_engine;
 	};
 }

@@ -27,7 +27,7 @@ namespace Starlight
 
 		void Init()
 		{
-			m_systemManager.get()->Init(this);
+			m_systemManager.get()->Init();
 		};
 
 		void Update(float dt) { m_systemManager.get()->Update(dt); }
