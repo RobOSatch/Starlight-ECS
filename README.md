@@ -1,4 +1,4 @@
-<img src="https://i.imgur.com/FlxniCH.png" title="ECS Demo" alt="ECS Demo">
+<img src="https://i.imgur.com/gaHDu1p.png" title="ECS Demo" alt="ECS Demo">
 
 # Starlight Engine
 
@@ -18,7 +18,7 @@ The project contains all required files to run it. Just open up the solution in 
 ## Demo
 The demo for this project features a "player" entity (purple rectangle), which can be controlled by moving the mouse around. 10000 Particles (blue rectangles) are spawned will move away from the player, whenever they are near. Once the player leaves their trigger range, the particles will arrange themselves in their original positions.
 
-![](https://media.giphy.com/media/f3GhE4SXoJrX3NMQvb/giphy.gif)
+![](https://media.giphy.com/media/hsJREiQ8ztDRPupab8/giphy.gif)
 
 ---
 ## The Entity Component System
@@ -33,11 +33,10 @@ The project uses an ECS to manage the game logic. Systems encapsulate behaviour 
 - [Defining a system](#defining-a-system)
 - [Main game loop](#main-game-loop)
 
-## Using the engine
-In order to use the engine you have to include `Starlight.h`. After that, you have to create an instance of `EntityManager` and use it to get an instance of `Engine`.
+## Initializing the engine
+In order to use the engine you have to include `Starlight.h`. After that, you have to create an instance of `Engine` and you're good to go.
 ```
-std::unique_ptr<EntityManager> entityManager = std::make_unique<EntityManager>();
-Engine* starlightEngine = new Engine(std::move(entityManager));
+Engine* starlightEngine = new Engine();
 ```
 
 ## Adding systems
