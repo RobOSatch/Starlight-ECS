@@ -40,7 +40,6 @@
       <Filter>src\Engine\System</Filter>
     </ClInclude>
     <ClInclude Include="src\StarlightEngine\System\SystemManager.h" />
-    <ClInclude Include="src\StarlightEngine\Utils\TypeWrapper.h" />
     <ClInclude Include="src\Components\TransformComponent.h" />
     <ClInclude Include="src\StarlightEngine\Starlight.h" />
     <ClInclude Include="src\Vector2.h">

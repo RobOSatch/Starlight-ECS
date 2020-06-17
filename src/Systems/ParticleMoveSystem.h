@@ -12,6 +12,8 @@ struct ParticleTuple
 	RenderComponent* render;
 };
 
+
+//particles get "pushed away" based on the input
 class ParticleMoveSystem : public Starlight::System<ParticleTuple>
 {
 
@@ -41,6 +43,7 @@ class ParticleMoveSystem : public Starlight::System<ParticleTuple>
 			auto* render = it->render;
 			auto* particle = it->particle;
 
+			//push
 			Vector2 direction = transform->m_Position - input->m_Position;
 
 			if (direction.Length() < particle->triggerRadius)

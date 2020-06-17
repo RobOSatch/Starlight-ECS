@@ -11,6 +11,8 @@ namespace Starlight
 {
 	class Engine;
 	
+	// Memory allocation for the component type. The componets are going to be
+	// placed contiguously in memory
 	template<typename T>
 	struct ComponentList
 	{
@@ -18,14 +20,19 @@ namespace Starlight
 		std::array<T, MAX_COMPONENTS>* data;
 	};
 
+	// Interface for the component managers. This is needed to make things work
+	// with generic programming
 	class IComponentManager
 	{
 	public:
 		IComponentManager() = default;
 		virtual ~IComponentManager() = default;
+		virtual void RemoveComponent(Entity entity) = 0;
 
 	};
 
+	// Generic class representing the component manager for a single component type.
+	// Each type of component will have its own manager
 	template<typename T>
 	class ComponentManager : public IComponentManager
 	{		
@@ -46,7 +53,8 @@ namespace Starlight
 			delete[](m_componentList.data);
 		}
 
-		
+		// Adds the specified component to the manager and links it to the
+		// specified entity
 		ComponentId AddComponent(Entity entity, T& component)
 		{
 			ComponentId id = m_componentList.size;
@@ -57,28 +65,38 @@ namespace Starlight
 			return id;
 		}
 
+		// Removes the component for the managers type from the specified entity
 		void RemoveComponent(Entity entity)
 		{
-			ComponentId id = m_entityMap.GetComponent(entity);
-
+			const ComponentId* id = m_entityMap.GetComponent(entity);
+			if (id == nullptr)
+			{
+				return;
+			}
 			ComponentId componentToMove = m_componentList.size - 1;
-			m_componentList.data->at(id) = m_componentList.data->at(componentToMove);
+			m_componentList.data->at(*id) = m_componentList.data->at(componentToMove);
 			Entity entityToMove = m_entityMap.GetEntity(componentToMove);
 
 			m_entityMap.Delete(entity);
 
-			if (entity.id != entityToMove.id) m_entityMap.Update(entityToMove, id);
+			if (entity.id != entityToMove.id) m_entityMap.Update(entityToMove, *id);
 
 			m_componentList.size--;
 		}
 
+		// Returns the component, matching this managers type from the specified entity
 		T* GetComponent(Entity entity) const
 		{
-			ComponentId id = m_entityMap.GetComponent(entity);
-			return &m_componentList.data->at(id);
+			const ComponentId* id = m_entityMap.GetComponent(entity);
+			if (id == nullptr)
+			{
+				return nullptr;
+			}
+			return &m_componentList.data->at(*id);
 		}
 		
-
+		// Helper class, which is used to get the components of this manager, without
+		// exposing its state too much
 		class Iterator;
 
 		Iterator* GetIterator() const

@@ -2,6 +2,10 @@
 #include "Component.h"
 
 namespace Starlight {
+
+    // This struct represents a bitmask, which is used to match systems and entities
+    // depending on the component types they are using. If an entity has the components,
+    // which a system is "listening" for, they are "matched"
     struct ComponentTypeBitmask {
         unsigned int m_bitmask = 0;
 

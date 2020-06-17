@@ -13,6 +13,8 @@ struct RenderTuple
 	RenderComponent* render;
 };
 
+//Dispalys componentes to the screen
+//Renderer is used as an accessor
 class RenderSystem : public Starlight::System<RenderTuple>
 {
 	Renderer* renderer;

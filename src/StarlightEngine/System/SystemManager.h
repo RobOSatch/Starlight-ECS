@@ -7,6 +7,9 @@
 
 namespace Starlight
 {
+
+	// Represents the system manage, which holds the ECSs system and is responsible for
+	// initializing and updating them correctly
 	class SystemManager
 	{
 	public:
@@ -31,6 +34,14 @@ namespace Starlight
 			m_systems.erase(itr);		
 		}
 
+		void Init()
+		{
+			for (ISystem* s : m_systems) {
+				s->Init();
+			}
+		}
+
+		// Main loop update function
 		void Update(float deltaTime)
 		{
 			for (ISystem* s : m_systems)
@@ -39,13 +50,9 @@ namespace Starlight
 			}
 		}
 
-		void Init()
-		{
-			for (ISystem* s : m_systems) {
-				s->Init();
-			}
-		}
-
+		// Adds or removes entities from systems, where the updated bitmask doesn't
+		// match anymore. This happens when the user adds or removes a component, so that
+		// the entities bitmask and the systems bitmask match / unmatch.
 		void UpdateBitmask(Entity const& entity, ComponentTypeBitmask oldBitmask)
 		{
 			ComponentTypeBitmask bitmask = m_bitmaskMap[entity];
@@ -59,6 +66,8 @@ namespace Starlight
 			}
 		}
 
+		// Registers the specified component type to the entity and updates the
+		// systems entities accordingly
 		template<typename T>
 		void AddComponentType(Entity const& entity)
 		{
@@ -68,6 +77,8 @@ namespace Starlight
 			UpdateBitmask(entity, bitmask);
 		}
 
+		// Removes the specified component type from the entity and updates the
+		// systems entities accordingly
 		template<typename T>
 		void RemoveComponentType(Entity* const& entity)
 		{
@@ -76,6 +87,7 @@ namespace Starlight
 			UpdateBitmask(entity, oldMask);
 		}
 
+		// Inalidates the caches for all the systems
 		void InvalidateCaches()
 		{
 			for (auto* s : m_systems)

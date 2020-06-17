@@ -11,8 +11,6 @@
 #include "Systems/PlayerMoveSystem.h"
 #include "Systems/ParticleMoveSystem.h"
 
-#include "Entity/ComponentContainer.h"
-
 #include <time.h>
 #include <omp.h>
 #include <string>
@@ -20,6 +18,13 @@
 #include <Windows.h>
 
 #define FPS_INTERVAL 1.0 //seconds.
+
+//***************************************************************************
+//
+// GED - Exercise 4 - Entity Component System
+// by: Robert Barta, Theodor Knab, Michael Prommer
+//
+// **************************************************************************
 
 int main(int argc, char* argv[])
 {
@@ -77,12 +82,10 @@ int main(int argc, char* argv[])
 	
 	renderComponent.m_Color = Color{ 0, 0, 255, 1 };
 
-	//srand(time(NULL));
 	for(int i = 0; i < 20000; ++i)
 	{
 		// Add entities
  		Starlight::Entity particle = starlightEngine->CreateEntity();
-		//component.m_Position = Vector2(rand() % wndWidth, rand() % wndHeight);
 		component.m_Position = Vector2(8 * (i % 200), 4 * (i / 100));
 		particleC.originalPos = component.m_Position;
 		starlightEngine->AddComponent(particle, TransformComponent(component));
@@ -115,17 +118,6 @@ int main(int argc, char* argv[])
 			fps_current = fps_frames;
 			fps_frames = 0;
 			SDL_SetWindowTitle(renderer.getWindow(), std::to_string(fps_current).c_str());
-			if (systemToggle)
-			{
-				//starlightEngine->AddSystem(particleMoveSystem);
-				systemToggle = false;
-			} else
-			{
-				//starlightEngine->RemoveSystem(particleMoveSystem);
-				systemToggle = true;
-
-			}
-
 		}
 	}
 	

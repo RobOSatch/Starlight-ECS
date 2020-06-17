@@ -11,6 +11,7 @@ struct InputTuple
 {
 };
 
+//reads the input to a singleton component
 class InputSystem : public Starlight::System<InputTuple>
 {
 	void Init()

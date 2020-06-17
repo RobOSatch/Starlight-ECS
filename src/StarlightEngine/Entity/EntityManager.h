@@ -3,6 +3,8 @@
 
 namespace Starlight
 {
+	// This class represents the entity manager and is responsible for giving out the next
+	// available EntityId to the API user.
 	class EntityManager
 	{
 	public:

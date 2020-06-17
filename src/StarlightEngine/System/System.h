@@ -8,6 +8,7 @@
 namespace Starlight
 {	
 
+	// Generic class representing a system
 	template<typename TupleType>
 	class System : public ISystem
 	{
@@ -17,6 +18,8 @@ namespace Starlight
 
 		virtual void Init() {};
 
+		// This update function does caching on the systems entities to improve performance
+		// drastically. It works generically on all custom systems.
 		void ActualUpdate(float dt) override
 		{
 			if (m_isCacheValid)
@@ -41,13 +44,15 @@ namespace Starlight
 			}
 		}
 
+		// Update function, which the user of the API has to override. This function does
+		// the data updates for the components and implements the systems logic.
 		virtual void Update(std::array<TupleType, 0x000FFFFF>* tuples, float dt) = 0;
 
+		// Tuple factory function, which the user of the API has to override. This function
+		// is there to make the ActualUpdate() function possible.
 		virtual TupleType MakeTuple(Entity e) = 0;
 
 	protected:
-
-		
 		std::array<TupleType, 0x000FFFFF> m_tuples;
 	};
 }

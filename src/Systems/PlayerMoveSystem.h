@@ -11,6 +11,7 @@ struct PlayerTuple
 	TagComponent* tag;
 };
 
+//applies the input to the player transform
 class PlayerMoveSystem : public Starlight::System<PlayerTuple>
 {
 	void Init()

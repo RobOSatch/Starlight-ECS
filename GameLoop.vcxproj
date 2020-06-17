@@ -195,7 +195,6 @@
     <ClInclude Include="src\StarlightEngine\Entity\EntityManager.h" />
     <ClInclude Include="src\StarlightEngine\System\ISystem.h" />
     <ClInclude Include="src\StarlightEngine\System\SystemManager.h" />
-    <ClInclude Include="src\StarlightEngine\Utils\TypeWrapper.h" />
     <ClInclude Include="src\StarlightEngine\Entity\Entity.h" />
     <ClInclude Include="src\Renderer.h" />
     <ClInclude Include="src\Systems\InputSystem.h" />
