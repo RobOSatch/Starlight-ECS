@@ -82,11 +82,11 @@ int main(int argc, char* argv[])
 	
 	renderComponent.m_Color = Color{ 0, 0, 255, 1 };
 
-	for(int i = 0; i < 20000; ++i)
+	for(int i = 0; i < 10000; ++i)
 	{
 		// Add entities
  		Starlight::Entity particle = starlightEngine->CreateEntity();
-		component.m_Position = Vector2(8 * (i % 200), 4 * (i / 100));
+		component.m_Position = Vector2(16 * (i % 200), 8 * (i / 100));
 		particleC.originalPos = component.m_Position;
 		starlightEngine->AddComponent(particle, TransformComponent(component));
 		starlightEngine->AddComponent(particle, RenderComponent(renderComponent));

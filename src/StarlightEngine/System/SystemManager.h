@@ -26,8 +26,8 @@ namespace Starlight
 
 		void RemoveSystem(ISystem * system)
 		{
-#ifdef _DEBUG
 			auto itr = std::find(m_systems.begin(), m_systems.end(), system);
+#ifdef _DEBUG
 			assert(itr != m_systems.cend());
 #endif
 
