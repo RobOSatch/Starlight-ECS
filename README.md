@@ -19,8 +19,35 @@ The demo for this project features a "player" entity (purple rectangle), which c
 ## The Entity Component System
 The project uses an ECS to manage the game logic. Systems encapsulate behaviour and hold no data, while Components hold data, but have no behaviour. Entities are there to group components, which likely will work together (player entity for example). The following sections explain how to use the ECS.
 
-## Creating a component
-Each component you define has to be derived from `Component`. You have to provide its own type as a generic parameter for the ComponentManager to register and manage it properly.
+## Using the engine
+In order to use the engine you have to include `Starlight.h`. After that, you have to create an instance of `EntityManager` and use it to get an instance of `Engine`.
+```
+std::unique_ptr<EntityManager> entityManager = std::make_unique<EntityManager>();
+Engine* starlightEngine = new Engine(std::move(entityManager));
+```
+
+## Adding systems
+Before you initialize the engine propery, you need to add all your systems. This is done by calling `AddSystem`.
+```
+starlightEngine->AddSystem(mySystem);
+starlightEngine->AddSystem(anotherSystem);
+starlightEngine->Init();
+```
+
+## Component and Entity Manager
+The entity manager is used to create new entities. Just call `starlightEngine->CreateEntity()` to get an entity object. After that you can add as many components as you want to your entity by calling `AddComponent`. If you want to get a specific component for a given entity, you can use the corresponding `ComponentManager` to do so.
+```
+// Create entity and add components
+Entity player = starlightEngine->CreateEntity();
+starlightEngine->AddComponent(player, TransformComponent(transformComponent));
+starlightEngine->AddComponent(player, RenderComponent(renderComponent));
+
+// Get the transform component of the player
+auto* transform = starlightEngine->GetComponentManager<TransformComponent>()->GetComponent(player);
+```
+
+## Defining a component
+Each component you define has to be derived from `Component`. You have to provide its own type as a generic parameter for the `ComponentManager` to register and manage it properly.
 ```
 struct PositionComponent : public Component<PositionComponent>
 {
@@ -28,7 +55,7 @@ struct PositionComponent : public Component<PositionComponent>
 }
 ```
 
-## Creating a System
+## Defining a system
 Each system you define has to be derived from `System`. Additionally you have to provide a generic struct type, which will group the components used by the system
 ```
 class MySystem : public Starlight::System<MyTuple>
@@ -65,6 +92,16 @@ class MySystem : public Starlight::System<MyTuple>
   {
     // Do some logic with tuples
   }
+}
+```
+
+## Main game loop
+After defining and setting up all the systems, components and entities, all there is left is to create the main loop for the program and calling the engines update function.
+```
+// main game loop
+while (true)
+{
+  starlightEngine->Update(deltaTime);
 }
 ```
 
