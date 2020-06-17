@@ -109,6 +109,11 @@ while (true)
   starlightEngine->Update(deltaTime);
 }
 ```
+---
+# Our Team
+* <a href="https://github.com/TheodorKnab">Theodor Knab</a>
+* <a href="https://github.com/Prommerbua">Michael Prommer</a>
+* <a href="https://github.com/RobOSatch">Robert Barta</a>
 
 ## License
 
