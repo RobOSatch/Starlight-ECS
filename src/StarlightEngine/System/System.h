@@ -7,7 +7,6 @@
 
 namespace Starlight
 {	
-	class Engine;
 
 	template<typename TupleType>
 	class System : public ISystem
@@ -18,7 +17,7 @@ namespace Starlight
 
 		virtual void Init() {};
 
-		void ActualUpdate(float dt)
+		void ActualUpdate(float dt) override
 		{
 			if (m_isCacheValid)
 			{
@@ -47,7 +46,7 @@ namespace Starlight
 		virtual TupleType MakeTuple(Entity e) = 0;
 
 	protected:
-		
+
 		
 		std::array<TupleType, 0x000FFFFF> m_tuples;
 	};

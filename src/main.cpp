@@ -16,8 +16,10 @@
 #include <time.h>
 #include <omp.h>
 #include <string>
-#include < chrono >
+#include <chrono>
 #include <Windows.h>
+
+#define FPS_INTERVAL 1.0 //seconds.
 
 int main(int argc, char* argv[])
 {
@@ -26,22 +28,25 @@ int main(int argc, char* argv[])
 
 	Renderer renderer(wndWidth, wndHeight);
 
-	// Init some stuff (maybe refactor, this is kinda disgusting)
-	std::unique_ptr<Starlight::EntityManager> entityManager = std::make_unique<Starlight::EntityManager>();
-	Starlight::Engine* starlightEngine = new Starlight::Engine(std::move(entityManager));
+	Starlight::Engine* starlightEngine = new Starlight::Engine();
 
-	// Add systems
+	// Create systems
 	Starlight::ISystem* inputSystem = new InputSystem();
 	Starlight::ISystem* playerMoveSystem = new PlayerMoveSystem();
 	Starlight::ISystem* particleMoveSystem = new ParticleMoveSystem();
 	Starlight::ISystem* renderSystem = new RenderSystem(&renderer);
+
+	//Register systems
 	starlightEngine->AddSystem(inputSystem);
 	starlightEngine->AddSystem(playerMoveSystem);
-	starlightEngine->AddSystem(renderSystem);
 	starlightEngine->AddSystem(particleMoveSystem);
+	starlightEngine->AddSystem(renderSystem);
 
-	// Initialize game
-	starlightEngine->Init();
+	// Register component managers
+	starlightEngine->CreateComponentManager<TransformComponent>();
+	starlightEngine->CreateComponentManager<RenderComponent>();
+	starlightEngine->CreateComponentManager<ParticleComponent>();
+	starlightEngine->CreateComponentManager<TagComponent>();
 
 	// Setup components
 	TransformComponent component;
@@ -60,35 +65,25 @@ int main(int argc, char* argv[])
 
 	TagComponent playerTag;
 	playerTag.tag = 0;
-	
+
 	// Add entities
  	Starlight::Entity player = starlightEngine->CreateEntity();
 	starlightEngine->AddComponent(player, TransformComponent(component));
 	starlightEngine->AddComponent(player, RenderComponent(renderComponent));
-	//starlightEngine->AddComponent(player, MouseInputComponent(mouseComponent));
 	starlightEngine->AddComponent(player, TagComponent(playerTag));
-
-	Starlight::Entity mouse = starlightEngine->CreateEntity();
-	//starlightEngine->AddComponent(mouse, MouseInputComponent(mouseComponent));
-	
-	// TODO: Do bitmasks, this is absolutely disgusting
-	//inputSystem->AddEntity(player);
-	//playerMoveSystem->AddEntity(player);
-	//renderSystem->AddEntity(player);
-
-	srand(time(NULL));
-	renderComponent.m_Radius = 5;
-
-	Starlight::Entity particleToKill;
+		
+	renderComponent.m_Radius = 2;
 	std::vector<Starlight::Entity> particlesToKill;
 	
 	renderComponent.m_Color = Color{ 0, 0, 255, 1 };
-	for(int i = 0; i < 10000; ++i)
+
+	//srand(time(NULL));
+	for(int i = 0; i < 20000; ++i)
 	{
 		// Add entities
  		Starlight::Entity particle = starlightEngine->CreateEntity();
 		//component.m_Position = Vector2(rand() % wndWidth, rand() % wndHeight);
-		component.m_Position = Vector2(15 * (i % 100), 10 * (i / 100));
+		component.m_Position = Vector2(8 * (i % 200), 4 * (i / 100));
 		particleC.originalPos = component.m_Position;
 		starlightEngine->AddComponent(particle, TransformComponent(component));
 		starlightEngine->AddComponent(particle, RenderComponent(renderComponent));
@@ -98,12 +93,12 @@ int main(int argc, char* argv[])
 	std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
 	std::chrono::high_resolution_clock::time_point lastFrame = std::chrono::high_resolution_clock::now();
 
-#define FPS_INTERVAL 1.0 //seconds.
 
 	Uint32 fps_lasttime = SDL_GetTicks(); //the last recorded time.
 	Uint32 fps_current; //the current FPS.
 	Uint32 fps_frames = 0; //frames passed since the last recorded fps.
 
+	bool systemToggle = false;
 	while (true)
 	{
 		now = std::chrono::high_resolution_clock::now();
@@ -115,10 +110,22 @@ int main(int argc, char* argv[])
 		fps_frames++;
 		if (fps_lasttime < SDL_GetTicks() - FPS_INTERVAL * 1000)
 		{
+			
 			fps_lasttime = SDL_GetTicks();
 			fps_current = fps_frames;
 			fps_frames = 0;
 			SDL_SetWindowTitle(renderer.getWindow(), std::to_string(fps_current).c_str());
+			if (systemToggle)
+			{
+				//starlightEngine->AddSystem(particleMoveSystem);
+				systemToggle = false;
+			} else
+			{
+				//starlightEngine->RemoveSystem(particleMoveSystem);
+				systemToggle = true;
+
+			}
+
 		}
 	}
 	

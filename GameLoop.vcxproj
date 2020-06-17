@@ -88,7 +88,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)bin\</OutDir>
-    <IncludePath>C:\Users\robar\source\repos\GED-ECS\src\StarlightEngine;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)src\StarlightEngine;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -198,7 +198,6 @@
     <ClInclude Include="src\StarlightEngine\Utils\TypeWrapper.h" />
     <ClInclude Include="src\StarlightEngine\Entity\Entity.h" />
     <ClInclude Include="src\Renderer.h" />
-    <ClInclude Include="src\Systems\ArmageddonSystem.h" />
     <ClInclude Include="src\Systems\InputSystem.h" />
     <ClInclude Include="src\Systems\ParticleMoveSystem.h" />
     <ClInclude Include="src\Systems\PlayerMoveSystem.h" />

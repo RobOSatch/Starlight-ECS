@@ -1,4 +1,3 @@
-
 #include <assert.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -12,8 +11,8 @@ namespace Starlight
 {
 
 
-	static const uint32_t MAX_COMPONENT_COUNT = 0x00FFFFFF;
-	static const uint8_t  INDEX_BITS = 24;
+	static const uint32_t MAX_COMPONENT_COUNT = 0x000FFFFF;
+	static const uint8_t  INDEX_BITS = 20;
 
 	// Stores an 8 bit value and a 24bit generation value per slot
 	template<size_t MAX_NUM_SLOTS>
@@ -58,8 +57,8 @@ namespace Starlight
 
 		void free(uint32_t indexWithgeneration)
 		{
-			uint32_t index =(indexWithgeneration & 0x00FFFFFF);
-			uint32_t generation = (indexWithgeneration & 0xFF000000) >> INDEX_BITS;
+			uint32_t index =(indexWithgeneration & MAX_COMPONENT_COUNT);
+			uint32_t generation = (indexWithgeneration & ~MAX_COMPONENT_COUNT) >> INDEX_BITS;
 
 			// Check if generations match
 			assert(getGeneration(index) == generation);
@@ -84,8 +83,8 @@ namespace Starlight
 
 		bool isValid(uint32_t indexWithgeneration) const
 		{
-			uint32_t index = (uint32_t)(indexWithgeneration & 0x00FFFFFF);
-			uint32_t generation = (indexWithgeneration & 0xFF000000) >> INDEX_BITS;
+			uint32_t index = (uint32_t)(indexWithgeneration & MAX_COMPONENT_COUNT);
+			uint32_t generation = (indexWithgeneration & ~MAX_COMPONENT_COUNT) >> INDEX_BITS;
 			return getGeneration(index) == generation;
 		}
 
@@ -97,20 +96,20 @@ namespace Starlight
 		// Only allowed to call on previously allocated slots
 		void setSlotValue(uint32_t slotIndex, uint32_t value)
 		{
-			slots[slotIndex] = (slots[slotIndex] & 0xFF000000) | value;
+			slots[slotIndex] = (slots[slotIndex] & ~MAX_COMPONENT_COUNT) | value;
 		}
 
 		uint32_t getSlotValue(uint32_t slotIndex) const
 		{
-			return (uint32_t)(slots[slotIndex] & 0x00FFFFFF);
+			return (uint32_t)(slots[slotIndex] & MAX_COMPONENT_COUNT);
 		}
 
 	private:
 
 		void setGeneration(uint32_t slotIndex, uint32_t generation)
 		{
-			assert((generation & 0xFF000000) == 0); // generation is only 24 bits
-			slots[slotIndex] = (slots[slotIndex] & 0x00FFFFFF) | (generation << 8);
+			assert((generation & ~MAX_COMPONENT_COUNT) == 0); // generation is only 24 bits
+			slots[slotIndex] = (slots[slotIndex] & MAX_COMPONENT_COUNT) | (generation << 8);
 		}
 
 		// first 8 bits are indices/values, the remaining 24 bits are the slot's generation
@@ -139,14 +138,14 @@ namespace Starlight
 			assert(m_componentCount < MAX_COMPONENT_COUNT);
 
 			const uint32_t indexWithGeneration = m_lookup.alloc();
-			const uint32_t lookupIndex = (uint32_t)(indexWithGeneration & 0x00FFFFFF);
+			const uint32_t lookupIndex = (uint32_t)(indexWithGeneration & MAX_COMPONENT_COUNT);
 
 			// Call constructor on m_componentes[m_componentCount]? => but would then also need dtor, copy ctor, assignment op,...
 			// https://www.modernescpp.com/index.php/c-core-guidelines-constructors-assignments-and-desctructors
 			// => I'm not calling ctor here
 
 			// Map lookup index to component index
-			const uint32_t componentIndex = (uint32_t)(m_componentCount & 0x00FFFFFF);
+			const uint32_t componentIndex = (uint32_t)(m_componentCount & MAX_COMPONENT_COUNT);
 			m_componentes[componentIndex] = component;
 			m_lookup.setSlotValue(lookupIndex, componentIndex);
 
@@ -172,7 +171,7 @@ namespace Starlight
 			const uint32_t indexWithGeneration = static_cast<uint32_t>(id);
 			assert(m_lookup.isValid(indexWithGeneration));
 
-			const uint32_t index = (uint32_t)(indexWithGeneration & 0x00FFFFFF);
+			const uint32_t index = (uint32_t)(indexWithGeneration & MAX_COMPONENT_COUNT);
 			uint32_t componentIndex = m_lookup.getSlotValue(index);
 
 			// Keep m_componentes packed
@@ -195,7 +194,7 @@ namespace Starlight
 			const uint32_t indexWithGeneration = static_cast<uint32_t>(id);
 			if (m_lookup.isValid(indexWithGeneration))
 			{
-				const uint32_t index = (uint32_t)(indexWithGeneration & 0x00FFFFFF);
+				const uint32_t index = (uint32_t)(indexWithGeneration & MAX_COMPONENT_COUNT);
 				uint32_t componentIndex = m_lookup.getSlotValue(index);
 				return &m_componentes[componentIndex];
 			}

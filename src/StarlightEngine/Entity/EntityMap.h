@@ -14,8 +14,8 @@ namespace Starlight
 		std::map<Entity, ComponentId> m_ComponentMap;
 		std::array<Entity, MAX_COMPONENTS> m_EntityMap;
 
-		Entity GetEntity(ComponentId c) { return m_EntityMap.at(c); }
-		ComponentId GetComponent(Entity e) { return m_ComponentMap.at(e); }
+		Entity GetEntity(ComponentId c) const { return m_EntityMap.at(c); }
+		ComponentId GetComponent(Entity e) const { return m_ComponentMap.at(e); }
 
 		void Add(Entity e, ComponentId c)
 		{

@@ -10,7 +10,6 @@ namespace Starlight
 		{
 			Entity entity;
 			entity.id = m_nextId++;
-			
 			return entity;
 		}
 	

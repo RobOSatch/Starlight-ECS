@@ -9,6 +9,8 @@
 
 namespace Starlight
 {
+	class Engine;
+	
 	template<typename T>
 	struct ComponentList
 	{
@@ -21,10 +23,7 @@ namespace Starlight
 	public:
 		IComponentManager() = default;
 		virtual ~IComponentManager() = default;
-		IComponentManager(const IComponentManager&) = default;
-		IComponentManager& operator=(const IComponentManager&) = default;
-		IComponentManager(IComponentManager&&) = default;
-		IComponentManager& operator=(IComponentManager&&) = default;
+
 	};
 
 	template<typename T>
@@ -41,7 +40,13 @@ namespace Starlight
 			this->m_engine = engine;
 			m_componentList.data = static_cast<std::array<T, MAX_COMPONENTS>*>(malloc(sizeof(T) * MAX_COMPONENTS));
 		}
+		
+		~ComponentManager()
+		{
+			delete[](m_componentList.data);
+		}
 
+		
 		ComponentId AddComponent(Entity entity, T& component)
 		{
 			ComponentId id = m_componentList.size;
@@ -67,7 +72,7 @@ namespace Starlight
 			m_componentList.size--;
 		}
 
-		T* GetComponent(Entity entity)
+		T* GetComponent(Entity entity) const
 		{
 			ComponentId id = m_entityMap.GetComponent(entity);
 			return &m_componentList.data->at(id);
@@ -76,7 +81,7 @@ namespace Starlight
 
 		class Iterator;
 
-		Iterator* GetIterator()
+		Iterator* GetIterator() const
 		{
 			return new Iterator(&m_componentList);
 		}
@@ -91,12 +96,12 @@ namespace Starlight
 				this->componentList = componentList;
 			}
 
-			T* begin()
+			T* begin() const
 			{
 				return &componentList->data->at(0);
 			}
 
-			T* end()
+			T* end() const
 			{
 				return &componentList->data->at(componentList->size);
 			}

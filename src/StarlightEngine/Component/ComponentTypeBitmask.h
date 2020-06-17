@@ -15,22 +15,22 @@ namespace Starlight {
             m_bitmask &= ~(1 << GetComponentTypeId<C>());
         }
 
-        bool IsNowMatched(ComponentTypeBitmask oldBitmask, ComponentTypeBitmask systemBitmask)
+        bool IsNowMatched(ComponentTypeBitmask oldBitmask, ComponentTypeBitmask systemBitmask) const
         {
             return (*this == systemBitmask) && !(oldBitmask == systemBitmask);
         }
 
-        bool IsNowUnmatched(ComponentTypeBitmask oldBitmask, ComponentTypeBitmask systemBitmask)
+        bool IsNowUnmatched(ComponentTypeBitmask oldBitmask, ComponentTypeBitmask systemBitmask) const
         {
             return (oldBitmask == systemBitmask) && (*this != systemBitmask);
         }
 
-        bool operator==(ComponentTypeBitmask rhs)
+        bool operator==(ComponentTypeBitmask rhs) const
         {
             return ((m_bitmask & rhs.m_bitmask) == rhs.m_bitmask);
         }
 
-        bool operator!=(ComponentTypeBitmask rhs)
+        bool operator!=(ComponentTypeBitmask rhs) const
         {
             return !(*this == rhs);
         }

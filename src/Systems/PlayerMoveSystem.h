@@ -15,7 +15,6 @@ class PlayerMoveSystem : public Starlight::System<PlayerTuple>
 {
 	void Init()
 	{
-		//this->AddComponentType<MouseInputComponent>();
 		this->AddComponentType<TransformComponent>();
 		this->AddComponentType<TagComponent>();
 	}

@@ -15,7 +15,6 @@ class InputSystem : public Starlight::System<InputTuple>
 {
 	void Init()
 	{
-		//this->AddComponentType<MouseInputComponent>();
 	}
 	
 	// Not needed because singleton
