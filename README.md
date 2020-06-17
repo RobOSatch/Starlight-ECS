@@ -24,6 +24,15 @@ The demo for this project features a "player" entity (purple rectangle), which c
 ## The Entity Component System
 The project uses an ECS to manage the game logic. Systems encapsulate behaviour and hold no data, while components hold data, but have no behaviour. Entities are there to group components, which likely will work together (player entity for example). The ECS makes use of efficient memory layout, by storing components of the same type contiguously in memory and allowing no "holes" in those memory blocks. The system's caching is setup in a way, where it will loop through those continous memory blocks during the update cycle. Despite the update cycle being called multiple times per second, the layout of the memory and its usage make it incredibly efficient, even when handling a large number of entities per frame. The following sections explain how to use the ECS.
 
+## Table of Contents
+
+- [Using the engine](#using-the-engine)
+- [Adding systems](#adding-systems)
+- [Component and Entity Manager](#component-and-entity-manager)
+- [Defining a component](#defining-a-component)
+- [Defining a system](#defining-a-system)
+- [Main game loop](#main-game-loop)
+
 ## Using the engine
 In order to use the engine you have to include `Starlight.h`. After that, you have to create an instance of `EntityManager` and use it to get an instance of `Engine`.
 ```
