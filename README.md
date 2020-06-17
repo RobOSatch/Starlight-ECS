@@ -18,7 +18,7 @@ The project contains all required files to run it. Just open up the solution in 
 ## Demo
 The demo for this project features a "player" entity (purple rectangle), which can be controlled by moving the mouse around. 10000 Particles (blue rectangles) are spawned will move away from the player, whenever they are near. Once the player leaves their trigger range, the particles will arrange themselves in their original positions.
 
-![](https://media.giphy.com/media/hsJREiQ8ztDRPupab8/giphy.gif)
+![](https://media.giphy.com/media/H8DwpRIaFUK59FhFJ3/giphy.gif)
 
 ---
 ## The Entity Component System
