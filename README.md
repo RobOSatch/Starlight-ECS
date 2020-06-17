@@ -4,6 +4,11 @@
 
 > A simple Entity Component System
 
+Some of the most helpful references used to create the ECS engine:
+* <a href="https://medium.com/@savas/nomad-game-engine-part-1-why-3be9825cb90a">The Nomad Game Engine Blog</a>
+* <a href="https://www.youtube.com/watch?v=W3aieHjyNvw&t=309s">GDC Talk about the gameplay architecture of Overwatch</a>
+* <a href="https://www.youtube.com/watch?v=rX0ItVEVjHc">Talk from Mike Akton about Data Oriented Design
+  
 ## External Libraries
 The project uses SDL for its renderer. Other than that, no external libraries are being used.
 
@@ -17,7 +22,7 @@ The demo for this project features a "player" entity (purple rectangle), which c
 
 ---
 ## The Entity Component System
-The project uses an ECS to manage the game logic. Systems encapsulate behaviour and hold no data, while Components hold data, but have no behaviour. Entities are there to group components, which likely will work together (player entity for example). The following sections explain how to use the ECS.
+The project uses an ECS to manage the game logic. Systems encapsulate behaviour and hold no data, while components hold data, but have no behaviour. Entities are there to group components, which likely will work together (player entity for example). The ECS makes use of efficient memory layout, by storing components of the same type contiguously in memory and allowing no "holes" in those memory blocks. The system's caching is setup in a way, where it will loop through those continous memory blocks during the update cycle. Despite the update cycle being called multiple times per second, the layout of the memory and its usage make it incredibly efficient, even when handling a large number of entities per frame. The following sections explain how to use the ECS.
 
 ## Using the engine
 In order to use the engine you have to include `Starlight.h`. After that, you have to create an instance of `EntityManager` and use it to get an instance of `Engine`.
